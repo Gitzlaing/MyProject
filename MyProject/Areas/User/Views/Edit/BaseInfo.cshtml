@@ -1,0 +1,22 @@
+﻿@model MyProject.EntitiesModel.UserInfo
+@{
+    ViewBag.Title = "基本信息";
+    Layout = "~/Areas/User/Views/Edit/Index.cshtml";
+}
+<style type="text/css">
+    #btnNext {
+        display: none;
+    }
+    #btnSubmit{
+        display:none;
+    }
+</style>
+
+<form action="/User/Edit/BaseInfo" method="post" enctype="multipart/form-data">
+@{Html.RenderPartial("/Views/Partial/UserInfo.cshtml", Model);}
+    <input type="submit" name="name" value="保存" class="btn btn-primary" style="width:150px;height:45px;"/>&nbsp;&nbsp;@ViewBag.Msg
+</form>
+<script>
+    $('#myTabs li').eq(0).addClass('active');
+</script>
+

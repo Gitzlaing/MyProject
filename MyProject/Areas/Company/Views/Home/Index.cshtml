@@ -1,0 +1,11 @@
+﻿@model MyProject.EntitiesModel.CompanyInfo
+@{
+    ViewBag.Title = "首页";
+    Layout = "~/Areas/Company/Views/Shared/ComapnyBasePage.cshtml";
+}
+
+@Html.Partial("CompanyInfo",Model)
+
+<script>
+    $('#myTabs li').eq(0).addClass('active');
+</script>

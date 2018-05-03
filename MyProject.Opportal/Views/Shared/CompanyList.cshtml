@@ -1,0 +1,119 @@
+﻿@using Webdiyer.WebControls.Mvc
+@using MyProject.EntitiesModel
+@model PagedList<MyProject.EntitiesModel.CompanyInfo>
+<style type="text/css">
+    #CompanyListPager {
+        display: inline;
+    }
+</style>
+<script type="text/javascript">
+    function Del(id) {
+        if (!confirm('确认删除吗？')) {
+            return false;
+        }
+        $.get("/Company/DeleteInfo/" + id, function (data) {
+            if (data.Status == 0) {
+                alert(data.Msg);
+                //如果删除的是该表的最上一条记录，则返回前一页
+                if (@Model.Count==1) {
+                    location.href = "#pageIndex=" +@(Model.CurrentPageIndex-1)  ;
+                }
+                else {
+                    location.reload();
+                }
+            }
+            else {
+                alert(data.Msg);
+            }
+        }, 'json')
+    }
+</script>
+
+<div id="divCompanyList" style="width:100%;height:100%;">
+    <table class="table table-striped">
+        <tr>
+            <th>公司ID</th>
+            <th>用户名</th>
+            <th>公司名</th>
+            <th>公司营业执照</th>
+            <th>认证状态</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+        @{
+            if (Model != null && Model.Count > 0)
+            {
+                foreach (CompanyInfo item in Model)
+                {
+                    <tr>
+                        <td>@item.CompanyId</td>
+                        <td>@item.Username</td>
+                        <td>@item.CompanyName</td>
+                        <td>
+                            @{
+                                if (item.LicenseUrl == null)
+                                {
+                                    <img src="~/Images/NoPicture.png" width="100px" height="80px" />
+                                }
+                                else
+                                {
+                                    <img src="@item.LicenseUrl" width="100px" height="80px" />
+                                }
+                            }
+                        </td>
+                        <td>
+                            @if (item.IsIdentify)
+                            {
+
+                                <span style="color:forestgreen">已认证</span>
+                            }
+                            else
+                            {
+                                <span style="color:red">未认证</span>
+                            }
+                        </td>
+                        <td>@item.CreateDate</td>
+                        <td>
+                            <a href="/Company/ShowInfo/@item.CompanyId">查看详情</a>
+                            <a href="javascript:;" onclick="Del(@item.CompanyId);">删除</a>
+                            @if (item.IsIdentify)
+                            {
+                                <a>取消认证</a>   }
+                            else
+                            {
+                                <a>认证</a>
+                            }
+                        </td>
+                    </tr>
+                                    }
+                                }
+        }
+
+    </table>
+
+    @Ajax.Pager(Model, new PagerOptions
+{
+    AutoHide = false,
+    Id = "CompanyListPager",
+    PageIndexParameterName = "pageIndex",
+    FirstPageText = "首页",
+    PrevPageText = "上一页",
+    NextPageText = "下一页",
+    LastPageText = "末页",
+    ContainerTagName = "ul",
+    CssClass = "pagination",
+    GoToButtonId = "goBtn",
+    PageIndexBoxId = "pagebox",
+    CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>",
+    DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>",
+    PagerItemTemplate = "<li>{0}</li>"
+}, new MvcAjaxOptions { UpdateTargetId = "divCompanyList" })
+    <div class="input-group" style="width:20%; padding-left:10px">
+        <span class="input-group-addon">转到第</span>
+        <input type="text" id="pagebox" class="form-control" style="width:70px;" />
+        <span class="input-group-addon">页</span>
+        <span class="input-group-btn"><input type="button" id="goBtn" value="跳转" class="btn btn-primary" /></span>
+        &nbsp;&nbsp;
+        <span class="input-group-addon" style="background-color:#fff;border:0;">共有 @Model.TotalItemCount 条记录</span>
+    </div>
+</div>

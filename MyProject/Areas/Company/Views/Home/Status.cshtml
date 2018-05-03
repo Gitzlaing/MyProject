@@ -1,0 +1,27 @@
+﻿@model MyProject.EntitiesModel.CompanyInfo
+@{
+    ViewBag.Title = "账户状态";
+    ViewBag.CompanyName = Model.CompanyName;
+    Layout = "~/Areas/Company/Views/Shared/ComapnyBasePage.cshtml";
+}
+<style type="text/css">
+    #companyStatus {
+        margin:0 auto;
+        width:250px;
+    }
+</style>
+
+<div id="companyStatus">
+        @if (ViewBag.CompanyStatus)
+        {
+          <h3 style="color:forestgreen">已通过验证</h3>
+        }
+        else
+        {
+            <h3 style="color:red">未通过验证</h3>
+        }
+</div>
+
+<script>
+    $('#myTabs li').eq(4).addClass('active');
+</script>

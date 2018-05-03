@@ -1,0 +1,12 @@
+﻿@using Webdiyer.WebControls.Mvc
+@using MyProject.EntitiesModel
+@model PagedList<MyProject.EntitiesModel.CompanyInfo>
+@{
+    ViewBag.Title = "公司列表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    Html.RenderPartial("CompanyList",Model);
+}
+@{Html.RegisterMvcPagerScriptResource();}
+ 

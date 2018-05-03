@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "注册";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    onload = nextSteps(@ViewBag.Type, 0);
+    function nextSteps(type, steps) {
+        var postData = {
+            type: type,
+            steps: steps
+        }
+        $.post("/register/checkSteps", postData, function (partial) {
+            $('#registerSteps').html(partial);
+        }
+        ,"text")
+    }
+</script>
+<h2>@ViewData["TypeName"]注册</h2>
+<div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%;">
+        注册帐户
+    </div>
+    <div class="progress-bar" role="progressbar" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100" style="width: 33%;background-color:#F5F5F5;color:#999999">
+        完善信息
+    </div>
+    <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 34%;background-color:#F5F5F5;color:#999999">
+        完成注册
+    </div>
+</div>
+
+<br />
+<div id="registerSteps">
+</div>
+
+@*<script type="text/javascript">
+            $('.progress-bar').get(@index).setAttribute("style", "width:33%");
+    </script>
+    @switch ((int)ViewBag.Steps)
+    {
+        case 0:
+            @Html.Partial("RegisterAccount");
+            break;
+        case 1:
+            @Html.Partial("RegisterUser");
+            break;
+        case 2:
+            @Html.Partial("RegisterCompany");
+            break;
+        default:
+            @Html.Partial("RegisterFinish");
+            break;
+    }*@
+
+
+

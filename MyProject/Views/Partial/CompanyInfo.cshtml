@@ -1,0 +1,136 @@
+﻿@model MyProject.EntitiesModel.CompanyInfo
+
+<style type="text/css">
+    #Describe {
+        width: 400px;
+        height: 200px;
+    }
+</style>
+<script type="text/javascript">
+    ///检查连图片格式，同时Ajax异步提交到Acion,obj为文件，imgBox为上传后显示的图片容器,pathHolder为返回路径存放容器
+    function checkImg(obj, imgMaxSize, imgBox, pathHolder) {
+        var img = $(obj).get(0).files[0];  //文件对象
+        var format = ['.jpg', '.jpeg', '.gif', '.png', '.bmp'];
+        var imgName = img.name;
+        var flag = false;
+        var extension = imgName.substr(imgName.lastIndexOf('.')).toLowerCase();
+        for (var i = 0; i < format.length; i++) {
+            if (extension == format[i]) {
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) {
+            alert('图片格式不正确！');
+            return false;
+        }
+        var imgSize = img.size;
+        if (imgSize > imgMaxSize * 1024 * 1024) {
+            alert('图片大小超过限制！');
+            return false;
+        }
+        //Ajax提交文件数据时必须用FormData
+        var postImg = new FormData();
+        postImg.append("img", img);
+        //上传按钮，异步上传
+        $.ajax({
+            url: '/Company/Images/UploadImg',
+            type: 'post',
+            data: postImg,
+            processData: false,    //上传文件必须
+            contentType: false,    //上传文件必须
+            success: function (data) {
+                if (data == 'false') {
+                    alert("服务出错");
+                }
+                else {
+                    $(imgBox).attr('src', data);
+                    $(pathHolder).val(data);
+                    alert('上传成功');
+                }
+            }
+        });
+        return false;
+    }
+</script>
+<table id="addCompanyInfoBox" style="height:1000px;">
+    <tr>
+        <th>公司名称：</th>
+        <td>@Html.EditorFor(o => o.CompanyName, new { htmlAttributes = new { @class = "form-control", style = "width:200px" } })</td>
+        <td class="tip">@Html.ValidationMessageFor(o => o.CompanyName)</td>
+    </tr>
+    <tr>
+        <th valign="top">公司图片：</th>
+        <td colspan="2" valign="top">
+            @Html.EditorFor(o => o.ImgUrl, new { htmlAttributes = new { style = "display: none;" } })
+            <input type="file" id="uploadCompanyImg" name="img" style="display:none;" />
+            <div class="input-group">
+                <input type="text" id="companyImgfileTxtCover" class="form-control" value="" readonly  />
+                <span class="input-group-btn">
+                    <input type="button" class="btn btn-primary" onclick="$('input[id=uploadCompanyImg]').click();" value="选择图片"/>
+                </span>
+            </div>
+            <br />
+            <img src="~/Images/NoPicture1.png" id="companyImg" width="400" height="120" style="display:block" />
+            <input type="button" id="uploadImg " value="上传" onclick="return checkImg($('#uploadCompanyImg'),2,$('#companyImg'),$('#ImgUrl'));" class="btn" />
+        </td>
+    </tr>
+    <tr>
+        <th valign="top">公司营业执照：</th>
+        <td colspan="2" valign="top">
+            @Html.EditorFor(o => o.LicenseUrl, new { htmlAttributes = new { style = "display: none;" } })
+            <input type="file" id="uploadLicense" name="img" style="display:none;" />
+            <div class="input-group">
+                <input type="text" id="licenseTxtCover" value="" class="form-control" readonly style="width:200px;display:inline;" />
+                <span class="input-group-btn">
+                    <input type="button" class="btn btn-primary" onclick="$('input[id=uploadLicense]').click();" value="选择图片" />
+                </span>
+            </div>
+            <br />
+            <img src="~/Images/NoPicture.png" id="companyLicense" width="350" height="300" style="display:block" />
+            <input type="button" value="上传" onclick="return checkImg($('#uploadLicense'),2,$('#companyLicense'),$('#LicenseUrl'));" class="btn" />
+        </td>
+    </tr>
+    <tr>
+        <th>公司地址：</th>
+        <td>@Html.EditorFor(o => o.Address, new { htmlAttributes = new { @class = "form-control", style = "width:200px" } })</td>
+        <td class="tip">@Html.ValidationMessageFor(o => o.Address)</td>
+    </tr>
+    <tr>
+        <th>公司经理(联系人)：</th>
+        <td>@Html.EditorFor(o => o.Manager, new { htmlAttributes = new { @class = "form-control", style = "width:200px" } })</td>
+        <td class="tip">@Html.ValidationMessageFor(o => o.Manager)</td>
+    </tr>
+    <tr>
+        <th>联系电话：</th>
+        <td>@Html.EditorFor(o => o.Tel, new { htmlAttributes = new { @class = "form-control", style = "width:200px" } })</td>
+        <td class="tip">@Html.ValidationMessageFor(o => o.Tel)</td>
+    </tr>
+    <tr>
+        <th align="center" valign="top">公司简介：</th>
+        <td colspan="2" valign="top">@Html.EditorFor(o => o.Describe, new { htmlAttributes = new { @class = "form-control" } })</td>
+    </tr>
+    <tr>
+        <td colspan="2" align="center">
+            <input type="submit" name="btnSubmit" value="保存" class="btn btn-primary" style="width:200px;height:45px;" /> <span>@ViewBag.Msg</span>
+        </td>
+        <td align="left"><input type="button" id="btnNext" name="btnNext" value="下一步" class="btn btn-primary" onclick="nextSteps(1, 2);" /></td>
+    </tr>
+</table>
+<script>
+    $('input[id=uploadCompanyImg]').change(function () {
+        $('#companyImgfileTxtCover').val($(this).val());
+    });
+    $('input[id=uploadLicense]').change(function () {
+        $('#licenseTxtCover').val($(this).val());
+    });
+
+    onload = function () {
+        if ($('#ImgUrl').val() != '') {
+            $('#companyImg').attr('src', $('#ImgUrl').val());
+        }
+        if ($('#LicenseUrl').val() != '') {
+            $('#companyLicense').attr('src', $('#LicenseUrl').val());
+        }
+    };
+</script>

@@ -1,0 +1,114 @@
+﻿
+@{
+    Layout = null;
+}
+
+@{
+    ViewBag.Title = "招聘网";
+
+}
+
+@{
+    //关闭当前.cshtml页面上所有的非侵入式脚本
+    Html.EnableUnobtrusiveJavaScript(true);
+
+    //关闭当前.cshtml页面上的参数合法性验证
+    Html.EnableClientValidation(true);
+}
+@model MyProject.Models.UserInfo
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+@*<div class="nav">
+        <div class="nav_left">招聘网</div>
+        <div class="nav_list">
+            <ul>
+                <li><a href="/home/index">首页</a></li>
+                <li><a href="#">求职</a></li>
+                <li><a href="#">APP</a></li>
+                <li><a href="#">资讯</a></li>
+            </ul>
+        </div>
+    </div>
+    <br />
+    <div class="Content">
+        <span style="font-size: 30px; font-weight:bold">登陆</span>
+    </div>   原导航栏*@
+@*<div class="LoginBox">
+        <form action="/home/login" method="post">
+            <table class="Login">
+                <tr>
+                    <td><input type="radio" name="usertype" value="user" checked="checked" />个人用户</td>
+                    <td><input type="radio" name="usertype" value="company" />企业用户</td>
+                </tr>
+                <tr>
+                    <th>用户名：</th>
+                    <td><input type="text" name="id" value="" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <th>密码：</th>
+                    <td><input type="text" name="pwd" value="" class="form-control" /></td>
+                </tr>
+                <tr>
+                    <th>验证码：</th>
+                    <td>
+                        <img src="/home/Getimg" alt="Captcha" />
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="submit" name="btnSubmit" value="登陆" class="btn btn-primary" /></td>
+                    <td><a href="#">注册</a></td>
+                </tr>
+            </table>
+        </form>
+
+    </div>*@
+
+@*UrlHelper*@
+@{
+    string url = Url.Encode("http://www.bysj.com/index");  //url编码
+}
+@url
+@HttpUtility.UrlDecode(url); 　@*解码*@
+<br />
+@Url.Action("about", "Home") @*返回虚拟路径，路径按路由表中匹配*@
+<br />
+@Url.Action("about", new { controller = "home" })   @*同上*@
+<br />
+@{
+    RouteValueDictionary rvd = new RouteValueDictionary();
+    rvd.Add("controller", "home");
+    rvd.Add("id", 100);  //设置路由表中url参数值
+}
+@Url.Action("about", rvd)
+<br />
+@*@Url.IsLocalUrl(Request.UrlReferrer.AbsolutePath)  @*防盗链*@
+@*Request.UrlReferrer.AbsolutePath 上次请求的链接的绝对路径*@
+@Url.IsLocalUrl("/home/index")
+@Url.IsLocalUrl("www.baidu.com")
+
+@*分布视图*@
+@{Html.RenderPartial("about");}
+@Html.Partial("about")
+@{ Html.RenderAction("about");
+    Html.RenderAction("about", new { controller = "home" })}
+
+
+@*非侵入式验证*@
+<form action="/home/checklogin" method="post">
+    <br />
+    @Html.DisplayNameFor(o => o.Uid)
+    @Html.EditorFor(o => o.Uid)
+    @Html.ValidationMessageFor(o => o.Uid)
+
+    <br />
+    @Html.DisplayNameFor(o => o.Password)
+    @Html.EditorFor(o => o.Password)
+    @Html.ValidationMessageFor(o => o.Password)
+</form>
+
+
+
+
+
+

@@ -1,0 +1,167 @@
+﻿
+/*header*/
+#header {
+    background: url(../images/main/top_r1_c5.jpg) repeat-x left bottom #fbfbfb;
+    height: 95px;
+    font-size: 12px;
+}
+
+#header-name {
+    font-size: 30px;
+    font-weight: bold;
+    color: #528fc6;
+    padding: 15px 0 0 50px;
+}
+
+#header-admin {
+    font-size: 18px;
+    padding: 0 0 20px 70px;
+    width: 112px;
+    color: #999
+}
+
+#header-right {
+    padding: 3px 10px 0 0;
+    font-size: 12px;
+}
+
+    #header-right span, #header-right a {
+        float: right
+    }
+
+    #header-right span {
+        background: url(../images/main/time.jpg) no-repeat 0px 2px;
+        padding: 0 10px 0 20px;
+    }
+
+    #header-right a.admin-out {
+        background: url(../images/main/exit.jpg) no-repeat 0px 2px;
+        padding: 0 0px 0 20px;
+    }
+
+    #header-right a:hover.admin-out {
+        background: url(../images/main/exiton.jpg) no-repeat 0px 2px;
+    }
+
+    #header-right a.admin-home {
+        background: url(../images/main/bool.jpg) no-repeat 0px 1px;
+        padding: 0 10px 0 20px;
+    }
+
+    #header-right a:hover.admin-home {
+        background: url(../images/main/boolon.jpg) no-repeat 1px 2px;
+    }
+
+    #header-right a.admin-index {
+        background: url(../images/main/home.jpg) no-repeat 0px 1px;
+        padding: 0 10px 0 20px;
+    }
+
+    #header-right a:hover.admin-index {
+        background: url(../images/main/homeon.jpg) no-repeat 0px -1px;
+    }
+
+#left {
+    width: 194px;
+    height: 800px;
+    /*float: left;*/
+    background: url(/Images/main/leftbg.jpg) left top repeat-y #f2f0f5;
+    SCROLLBAR-FACE-COLOR: #538ec6;
+    SCROLLBAR-HIGHLIGHT-COLOR: #dce5f0;
+    SCROLLBAR-SHADOW-COLOR: #2c6daa;
+    SCROLLBAR-3DLIGHT-COLOR: #dce5f0;
+    SCROLLBAR-ARROW-COLOR: #2c6daa;
+    SCROLLBAR-TRACK-COLOR: #dce5f0;
+    SCROLLBAR-DARKSHADOW-COLOR: #dce5f0;
+    /*overflow-x: hidden;*/
+}
+
+#right-content {
+    height: 800px;
+    width: 100%;
+    padding:50px;
+    /*display: table-cell;*/
+    flex:1;
+}
+
+#left-top {
+    line-height: 30px;
+    height: 66px;
+    padding-left: 20px;
+    background: #538ec6;
+    color: #FFF;
+}
+
+    #left-top span {
+        width: 125px;
+        padding: 0 0 0 6px;
+        height: 45px;
+        float: left;
+    }
+
+
+
+a:link, a:visited {
+    font-size: 12px;
+    color: #656565;
+    font-weight: normal;
+    text-decoration: none;
+    font-family: "Microsoft YaHei","Tahoma","Arial",'宋体';
+}
+
+a:hover, a:active {
+    font-size: 12px;
+    color: #548fc9;
+    font-weight: normal;
+    text-decoration: none;
+    font-family: "Microsoft YaHei","Tahoma","Arial",'宋体';
+}
+
+a.black:link, a.black:visited {
+    font-size: 12px;
+    color: #000000;
+    font-weight: bold;
+    text-decoration: none;
+    font-family: "Microsoft YaHei","Tahoma","Arial",'宋体';
+}
+
+a.black:hover, a.black:active {
+    font-size: 12px;
+    color: #548fc9;
+    font-weight: bold;
+    text-decoration: none;
+    font-family: "Microsoft YaHei","Tahoma","Arial",'宋体';
+}
+
+div.sdmenu div span {
+    display: block;
+    padding: 0px 25px;
+    font-weight: bold;
+    color: #548fc7;
+    background-color: #dce5f0;
+    height: 35px;
+    line-height: 35px;
+    width: 184px;
+}
+
+div.sdmenu div a {
+    display: block;
+    padding: 5px 10px 7px 35px;
+    background: #eee;
+    height: 30px;
+    line-height: 25px;
+    color: #656565;
+}
+
+    div.sdmenu div a:hover {
+        display: block;
+        padding: 5px 10px 7px 35px;
+        background-color: white;
+        height: 30px;
+        line-height: 25px;
+        color: #8c8c8c;
+    }
+
+div.sdmenu {
+    padding: 0 5px;
+}

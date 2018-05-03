@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model MyProject.EntitiesModel.UserInfo
+@section head{
+    <style type="text/css">
+        #myTabs {
+            width: 200px;
+            height: 700px;
+            margin: 0 10px 0 100px;
+            display: inline-block;
+        }
+        #userEdit {
+          width:100%;
+          margin-top:50px;
+        }
+    </style> 
+    <script type="text/javascript">
+    </script>
+}
+<h2>
+    个人中心
+</h2>
+<div id="userEdit">
+    <ul class="nav nav-pills nav-stacked" id="myTabs">
+        <li>
+           <a href="/user/edit/BaseInfo" >基本信息</a>  
+        </li>
+        <li>
+            <a href="/user/edit/WorkExperience">工作经历</a>  
+        </li>
+        <li>
+            <a href="/user/edit/ProjectExperience">项目经验</a>  
+        </li>
+    </ul>
+    <div style="width:1000px;float:right;overflow:hidden;">
+        @RenderBody()
+    </div>
+</div>

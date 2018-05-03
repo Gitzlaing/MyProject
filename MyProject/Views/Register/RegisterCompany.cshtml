@@ -1,0 +1,58 @@
+﻿<style type="text/css">
+    #addCompanyInfoBox {
+        margin: 0 auto;
+    }
+
+    .erroMsg {
+        color: red;
+        padding-left: 5px;
+    }
+
+    #addCompanyInfoBox {
+        height: 1100px;
+        width: 800px;
+    }
+
+        #addCompanyInfoBox th {
+            text-align: right;
+        }
+
+    #Describe {
+        width: 400px;
+        height: 200px;
+    }
+    .tip {
+        color: red;
+        width: 280px;
+    }
+</style>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/jquery.form.js"></script>
+<script type="text/javascript">
+    function mySubmit() {
+        $('#registerCompanyForm').ajaxSubmit(function (obj) {
+            if (obj == 'false') {
+                alert('连接出错');
+                return;
+            }
+            if (obj == 'Success') {
+                alert('保存成功');
+                return;
+            }
+            if (obj == 'TimeOut') {
+                alert('完善信息超时！请直接登陆网站修改公司信息!');
+                location.href = '/Login';
+            }
+        }
+        )
+        return false;
+    }
+</script>
+<form id="registerCompanyForm"  enctype="multipart/form-data" method="post" action="/Register/AddCompanyInfo" onsubmit="return mySubmit();"> @* enctype="multipart/form-data" 必须加此属性浏览器才会适当上传文件 *@
+    @Html.Partial("/views/Partial/CompanyInfo.cshtml")
+</form>
+<script type="text/javascript">
+    $('.progress-bar').get(1).setAttribute("style", "width:33%");
+</script>
+

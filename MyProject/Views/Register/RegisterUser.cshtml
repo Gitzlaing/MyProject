@@ -1,0 +1,41 @@
+﻿@model MyProject.EntitiesModel.UserInfo
+<style type="text/css">
+    #addUserInfoBox {
+        margin: 0 auto;
+    }
+    .erroMsg {
+        color: red;
+        padding-left: 5px;
+    }
+</style>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/jquery.form.js"></script>
+<script type="text/javascript">
+    function mySubmit() {
+        //直接处理回调的函数
+        $('#registerUserForm').ajaxSubmit(function (obj) {
+            if (obj == 'false') {
+                return;
+            }
+            if (obj == 'Success') {
+                alert('保存成功');
+                return;
+            }
+            if (obj == 'TimeOut') {
+                alert('完善信息超时！请直接登陆网站修改个人信息!');
+                location.href = '/Login';
+            }
+        }
+        )
+        return false;
+    }
+</script>
+
+<form id="registerUserForm" action="/Register/AddUserInfo" method="post" onsubmit="return mySubmit();">
+    @Html.Partial("/views/partial/UserInfo.cshtml")
+</form>
+<script type="text/javascript">
+    $('.progress-bar').get(1).setAttribute("style", "width:33%")
+</script>
+

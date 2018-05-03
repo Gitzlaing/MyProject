@@ -1,0 +1,71 @@
+﻿
+@model MyProject.EntitiesModel.UserInfo
+<style type="text/css">
+    th {
+        text-align: center;
+    }
+
+    .RegisterBox {
+        width: 700px;
+        height: 350px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    #tableAccount {
+        margin: 0 auto;
+        height: 200px;
+        width: 400px;
+    }
+
+    .tip {
+        color: red;
+        width: 100px;
+    }
+</style>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<script type="text/javascript">
+    function registerAccount() {
+        if ($('#Username').val() == '' | $('#Password').val() == '' | $('#RePassword').val() == '' ) {
+            return;
+        }
+        var postData = { Username: "", Password: "", RePassword:"" };
+        postData.Username = $('#Username').val();
+        postData.Password = hex_md5($('#Password').val()).toUpperCase();   //密码采用MD5加密
+        postData.RePassword = hex_md5($('#RePassword').val()).toUpperCase();   
+        $.post('/Register/CreateUserAccout', postData, function (data) {
+            if (data.Status == 0) {
+                alert("注册成功");
+                nextSteps(1, 1);
+            }
+            else {
+                alert(data.Msg);
+            }
+        }, 'json')
+    }
+</script>
+<div class="RegisterBox">
+    <form id="myForm">
+        <table id="tableAccount">
+            <tr>
+                <th>用户名：</th>
+                <td>@Html.EditorFor(o => o.Username, new { htmlAttributes = new { @class = "form-control", maxlength="10"} })</td>
+                <td class="tip">@Html.ValidationMessageFor(o => o.Username)</td>
+            </tr>
+            <tr>
+                <th>密码：</th>
+                <td>@Html.EditorFor(o=>o.Password, new { htmlAttributes = new { @class = "form-control", maxlength = "16" } })</td>
+                <td class="tip">@Html.ValidationMessageFor(o => o.Password)</td>
+            </tr>
+            <tr>
+                <th>确认密码：</th>
+                <td>@Html.EditorFor(o => o.RePassword, new { htmlAttributes = new { @class = "form-control", maxlength = "16" } })</td>
+                <td class="tip">@Html.ValidationMessageFor(o => o.RePassword)</td>
+            </tr>
+        </table>
+        <br />
+        <input type="button" name="btnregisterUser" value="注册" class="btn btn-primary" onclick="registerAccount();" />
+    </form>
+</div>
+

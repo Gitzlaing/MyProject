@@ -1,0 +1,47 @@
+﻿@model MyProject.EntitiesModel.CompanyInfo
+<table style="height:800px">
+    <tr>
+        <th>
+            用户名：
+        </th>
+        <td>
+            @Model.Username
+        </td>
+    </tr>
+    <tr>
+        <th>
+            公司名：
+        </th>
+        <td>@Model.CompanyName</td>
+    </tr>
+    <tr>
+        <th>公司图片：</th>
+        <td>
+            <img src=@(Model.ImgUrl==null?"/Images/NoPicture1.png":Model.ImgUrl)  width="400" height="120" />
+        </td>
+    </tr>
+    <tr>
+        <th>营业执照：</th>
+           <td><img src=@(Model.LicenseUrl==null?"/Images/NoPicture1.png":Model.LicenseUrl) width="350" height="300" /></td>
+    </tr>
+    <tr>
+        <th>经理（联系人）：</th>
+        <td>@Model.Manager</td>
+    </tr>
+    <tr>
+        <th>联系电话：</th>
+        <td>@Model.Tel</td>
+    </tr>
+    <tr>
+        <th>
+            公司地址：
+        </th>
+        <td>@Model.Address</td>
+    </tr>
+    <tr>
+        <th>
+            公司描述：
+        </th>
+        <td>@Model.Describe</td>
+    </tr>
+</table>

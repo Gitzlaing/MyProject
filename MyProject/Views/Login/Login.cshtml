@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewBag.Title = "登录";
+    ViewBag.UserName = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section head{
+    <style type="text/css">
+        .LoginBox {
+         float:right;
+         overflow:hidden;
+         width:400px;
+        }
+
+        .tip1, .tip2, .tip3, .tip4 {
+            color: red;
+        }
+
+        #txtCaptcha {
+            display: inline;
+            width: 95px;
+        }
+        /*table tr td {
+            padding: 4px 0;
+        }*/
+        table tr {
+            height: 45px;
+        }
+
+            table tr td label {
+                cursor: pointer;
+            }
+
+        table th {
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript">
+        function refreshCaptcha() {
+            $('#imgCaptcha').attr('src', '/login/GetimgAction?r=' + Math.random())
+        }
+
+        function login() {
+            if (!checkMsg()) {
+                return false;
+            }
+            var postData = { Username: "", Password: "", Captcha: "", isAutoLogin: "", LoginType: "" };
+            postData.Username = $('#txtUsername').val();
+            postData.Password = hex_md5($('#txtPwd').val()).toUpperCase();
+            postData.Captcha = $('#txtCaptcha').val();
+            postData.isAutoLogin = $('#chkAutoLogin').get(0).checked;
+            postData.LoginType = $("input[name = 'usertype']:checked").val();
+
+            $.post('/login/CheckLogin', postData, function (obj) {
+                if (obj.Status == 0) {
+                    alert('登录成功');
+                    if (postData.LoginType == "user") {
+                        location.href = '/home/homepage';
+                    }
+                    else {
+                        location.href = '/Company';
+                    }
+                }
+                else {
+                    setTip('.tip4', obj.Msg);
+                    refreshCaptcha();
+                }
+            }, 'json')
+        }
+
+        function checkMsg() {
+            var flag = true;
+            if ($('#txtUsername').val() == '') {
+                $('.tip1').html('请输入用户名！');
+                flag = false;
+            }
+            if ($('#txtPwd').val() == '') {
+                setTip('.tip2', '请输入密码!');
+                flag = false;
+            }
+            if ($('#txtCaptcha').val() == '') {
+                setTip('.tip3', '请输入验证码!');
+                flag = false;
+            }
+            return flag;
+        }
+        function setTip(id, msg) {
+            $(id).html(msg);
+        }
+    </script>
+}
+
+
+<br /><br />
+<div class="LoginBox">
+    <span style="font-size: 30px; font-weight:bold">登录</span>
+    <form>
+        <table>
+            <tr>
+                <td><label><input type="radio" name="usertype" value="user" checked="checked" />个人用户</label> </td>
+                <td style="padding-left:25px" colspan="2"><label><input type="radio" name="usertype" value="company" />企业用户</label></td>
+            </tr>
+            <tr>
+                <th>用户名：</th>
+                <td>
+                    <input type="text" name="UserName" value="" class="form-control" id="txtUsername" onfocus="setTip('.tip1', '')" />
+                </td>
+                <td><span class="tip1"></span></td>
+            </tr>
+            <tr>
+                <th>密码：</th>
+                <td>
+                    <input type="password" name="password" id="txtPwd" value="" class="form-control" onfocus="setTip('.tip2', '')">
+                </td>
+                <td><span class="tip2"></span></td>
+            </tr>
+            <tr>
+                <th>验证码：</th>
+                <td>
+                    <input type="text" name="captcha" id="txtCaptcha" value="" class="form-control" onfocus="setTip('.tip3', '')" />
+                    <img id="imgCaptcha" src="/login/GetimgAction" alt="验证码" title="点击刷新" onclick="refreshCaptcha()" style="cursor:pointer" />
+                </td>
+                <td><span class="tip3"></span></td>
+            </tr>
+            <tr>
+                <td>
+                    <label style="font-weight:400"><input type="checkbox" name="autoLogin" id="chkAutoLogin" value="" /> &nbsp; 自动登录</label>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="button" name="btnSubmit" value="登录" class="btn btn-primary" onclick="login();" /></td>
+                <td><a href="/register/1" style="display:inline;">个人注册</a>/<a href="/register/2" style="display:inline;">企业注册</a>&nbsp;&nbsp;&nbsp;<span class="tip4"></span></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<br />
+<div class="clearfix"></div>
+

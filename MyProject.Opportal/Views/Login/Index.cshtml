@@ -1,0 +1,42 @@
+﻿@model MyProject.EntitiesModel.Operator
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>招聘网后台管理</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/md5.encrypt.js"></script>
+    <link href="~/Content/myStyle.css" rel="stylesheet" />
+    <script>
+        function mySubmit() {
+            $('#Password').val(hex_md5($('#Password').val()));
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <form action="/login/index" method="post">
+        <div class="login-main">
+            <div class="login-head">
+                <h1>招聘网后台管理系统</h1>
+            </div>
+            <div class="login-block">
+                <div class="login-input">
+                    账号：@Html.TextBoxFor(o => o.OperatName, new { placeholder = "Account" }) @Html.ValidationMessageFor(o => o.OperatName, null, new { @class = "errorMsg" })
+                    <div class="clearfix"> </div>
+                    密码： @Html.EditorFor(o => o.Password, new { htmlAttributes = new { placeholder = "Password" } }) @Html.ValidationMessageFor(o => o.Password, null, new { @class = "errorMsg" })
+                    <div class="clearfix"> </div>
+                    <p class="errorMsg">@ViewBag.ErrorMsg</p>
+                </div>
+                <input type="submit" id="mysubmit" value="登录" onclick=" return mySubmit();">
+            </div>
+        </div>
+    </form>
+
+    @Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

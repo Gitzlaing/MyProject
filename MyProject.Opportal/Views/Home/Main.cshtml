@@ -1,0 +1,16 @@
+﻿@model MyProject.EntitiesModel.Operator
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "网上招聘后台管理系统";
+    ViewBag.TypeName = "超级管理员";
+}
+<table style="margin:0 auto; height:400px;">
+    <tr>
+        <th><h2>注册企业公司总数:</h2></th>
+        <td><h3>@ViewBag.CompanyRecords</h3></td>
+    </tr>
+    <tr>
+        <th><h2>注册普通用户总人数:</h2></th>
+        <td><h3>@ViewBag.UserRecords </h3></td>
+    </tr>
+</table>
