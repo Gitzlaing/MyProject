@@ -7,16 +7,17 @@
     }
 </style>
 <script type="text/javascript">
+    //删除企业信息
     function Del(id) {
         if (!confirm('确认删除吗？')) {
             return false;
         }
-        $.get("/Company/DeleteInfo/" + id, function (data) {
+        $.get("/Company/List/DeleteInfo/" + id, function (data) {
             if (data.Status == 0) {
                 alert(data.Msg);
                 //如果删除的是该表的最上一条记录，则返回前一页
                 if (@Model.Count==1) {
-                    location.href = "#pageIndex=" +@(Model.CurrentPageIndex-1)  ;
+                    location.href = "#pageIndex=" +@(Model.CurrentPageIndex-1);
                 }
                 else {
                     location.reload();
@@ -26,6 +27,36 @@
                 alert(data.Msg);
             }
         }, 'json')
+    }
+    //认证企业信息
+    function authen(id) {
+        if (!confirm('认证该企业用户?')) {
+            return false;
+        }
+        $.get("/Company/List/Authen/" + id, function (data) {
+            if (data.Status == 0) {
+                alert(data.Msg);
+                location.reload();
+            }
+            else {
+                alert(data.Msg);
+            }
+        },'json')
+    }
+    //取消认证信息
+    function unAuthen(id) {
+        if (!confirm('取消认证该企业用户?')) {
+            return false;
+        }
+        $.get("/Company/List/UnAuthen/" + id, function (data) {
+            if (data.Status == 0) {
+                alert(data.Msg);
+                location.reload();
+            }
+            else {
+                alert(data.Msg);
+            }
+        },'json')
     }
 </script>
 
@@ -74,40 +105,40 @@
                         </td>
                         <td>@item.CreateDate</td>
                         <td>
-                            <a href="/Company/ShowInfo/@item.CompanyId">查看详情</a>
+                            <a href="/Company/List/ShowInfo/@item.CompanyId">查看详情</a>
                             <a href="javascript:;" onclick="Del(@item.CompanyId);">删除</a>
                             @if (item.IsIdentify)
                             {
-                                <a>取消认证</a>   }
+                                <a href="javascript:;" onclick="unAuthen(@item.CompanyId)">取消认证</a> }
                             else
                             {
-                                <a>认证</a>
+                                <a href="javascript:;" onclick="authen(@item.CompanyId);">认证</a>
                             }
                         </td>
                     </tr>
-                                    }
-                                }
+                }
+            }
         }
 
     </table>
 
     @Ajax.Pager(Model, new PagerOptions
-{
-    AutoHide = false,
-    Id = "CompanyListPager",
-    PageIndexParameterName = "pageIndex",
-    FirstPageText = "首页",
-    PrevPageText = "上一页",
-    NextPageText = "下一页",
-    LastPageText = "末页",
-    ContainerTagName = "ul",
-    CssClass = "pagination",
-    GoToButtonId = "goBtn",
-    PageIndexBoxId = "pagebox",
-    CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>",
-    DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>",
-    PagerItemTemplate = "<li>{0}</li>"
-}, new MvcAjaxOptions { UpdateTargetId = "divCompanyList" })
+    {
+        AutoHide = false,
+        Id = "CompanyListPager",
+        PageIndexParameterName = "pageIndex",
+        FirstPageText = "首页",
+        PrevPageText = "上一页",
+        NextPageText = "下一页",
+        LastPageText = "末页",
+        ContainerTagName = "ul",
+        CssClass = "pagination",
+        GoToButtonId = "goBtn",
+        PageIndexBoxId = "pagebox",
+        CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>",
+        DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>",
+        PagerItemTemplate = "<li>{0}</li>"
+    }, new MvcAjaxOptions { UpdateTargetId = "divCompanyList" })
     <div class="input-group" style="width:20%; padding-left:10px">
         <span class="input-group-addon">转到第</span>
         <input type="text" id="pagebox" class="form-control" style="width:70px;" />

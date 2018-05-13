@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,6 +17,9 @@ namespace MyProject
         /// </summary>
         protected void Application_Start()
         {
+          //  SqlDependency 数据库监听类
+           // SqlDependency.Start(ConfigurationManager.ConnectionStrings["EFDbContext"].ConnectionString);
+
             AreaRegistration.RegisterAllAreas();  //注册区域(包含区域路由)，比全局路由具有优先级
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);//过滤器
             RouteConfig.RegisterRoutes(RouteTable.Routes);//注册路由规则 

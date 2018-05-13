@@ -1,4 +1,8 @@
 ﻿@model MyProject.EntitiesModel.CompanyInfo
+@{
+    ViewBag.Title = "ShowInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <table style="height:800px">
     <tr>
         <th>
@@ -17,12 +21,12 @@
     <tr>
         <th valign="top">公司图片：</th>
         <td>
-            <img src=@(Model.ImgUrl==null?"/Images/NoPicture1.png":Model.ImgUrl)  width="400" height="120" />
+            <img src=@(Model.ImgUrl==null?"/Images/NoPicture1.png":Model.ImgUrl) width="400" height="120" />
         </td>
     </tr>
     <tr>
         <th valign="top">营业执照：</th>
-           <td><img src=@(Model.LicenseUrl==null?"/Images/NoPicture1.png":Model.LicenseUrl) width="350" height="300" /></td>
+        <td><img src=@(Model.LicenseUrl==null?"/Images/NoPicture1.png":Model.LicenseUrl) width="350" height="300" /></td>
     </tr>
     <tr>
         <th>经理（联系人）：</th>
@@ -45,3 +49,4 @@
         <td>@Model.Describe</td>
     </tr>
 </table>
+<input type="button" name="" value="认证该企业账号" class="btn btn-primary btn-lg" />

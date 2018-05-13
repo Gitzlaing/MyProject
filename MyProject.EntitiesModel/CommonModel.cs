@@ -23,4 +23,5 @@ namespace MyProject.EntitiesModel
         [NotMapped]
         public string RePassWord { get; set; }
     }
+    
 }

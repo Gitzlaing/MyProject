@@ -6,12 +6,13 @@
 <div>
     <ul class="nav nav-tabs" id="myTabs">
         <li><a href="/Company">首页</a></li>        
-        <li><a href="/Company/Job/Release">发布工作</a></li>
+        <li><a href="/Company/Job/Release">发布职位</a></li>
+        <li><a href="/Company/Job/Edit">职位管理</a></li>
         <li><a href="/Company/Edit/Index">账户设置</a></li>
-        <li class="disabled"><a href="/Company/Edit/Resume">简历管理</a></li>
+        <li><a href="/Company/Edit/Resume">简历管理</a></li>
         <li><a href="/Company/Home/Status">公司状态</a></li>
     </ul>
-    <div id="companyContent">
+    <div id="companyContent" style="padding-top:20px;">
         @RenderBody()
     </div>
 </div>   

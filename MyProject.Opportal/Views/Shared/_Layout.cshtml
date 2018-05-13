@@ -4,13 +4,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8;" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>@ViewBag.Title - 我的 ASP.NET 应用程序</title>
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     <link href="~/Content/layOut.css" rel="stylesheet" />
     @RenderSection("head", false)
+
 </head>
 <body>
     <div id="header-container">
@@ -21,7 +22,7 @@
                         <tr>
                             <td align="left" valign="bottom" id="header-name">网络招聘</td>
                             <td align="right" valign="top" id="header-right">
-                                <a href="#" class="admin-out">注销</a>
+                                <a onclick="return confirm('确认退出？');" href="/Home/Exit" class="admin-out">注销</a>
                                 <a href="/login" class="admin-home">首页</a>
                                 <span>
                                     <script src="~/Scripts/clock.js"></script>
@@ -44,12 +45,12 @@
                 <div>
                     <span>系统设置</span>
                     <a href="/Home/Main">首页</a>
-                    <a href="/Edit/index">管理员设置</a>
+                    <a href="/Edit">管理员设置</a>
                 </div>
                 <div>
                     <span>企业管理</span>
-                    <a href="/Company/index">企业列表</a>
-                    <a href="#">企业留言</a>
+                    <a href="/Company/List">企业列表</a>
+                    <a href="">企业留言</a>
                 </div>
                 <div>
                     <span>用户管理</span>
@@ -69,5 +70,13 @@
 
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+            var strurl = location.href;
+            $("div.sdmenu div a").each(function () {
+                if (strurl.indexOf($(this).attr('href')) > -1 && $(this).attr('href') != '') {
+                    $(this).attr('style', 'background-color:white;');
+                }
+            })
+    </script>
 </body>
 </html>

@@ -18,9 +18,10 @@ namespace MyProject.EntitiesModel
         public virtual DbSet<Operator> Operator { get; set; }
         public virtual DbSet<UserInfo> UserInfo { get; set; }
 
+        public virtual DbSet<JobType> JobType { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            
             //modelBuilder.Entity<CompanyInfo>()
             //    .Property(e => e.PassWord)
             //    .IsUnicode(false);

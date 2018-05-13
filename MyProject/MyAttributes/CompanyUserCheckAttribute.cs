@@ -18,9 +18,9 @@ namespace MyProject.MyAttributes
         {
             base.OnActionExecuting(filterContext);
             if (HttpContext.Current.Session[Key.Current_Company] == null)       //检查session
-            { 
+            {
                 HttpCookie userCookie = HttpContext.Current.Request.Cookies["CompanyId"];        //检查cookie
-      
+
                 if (userCookie == null)
                 {
                     RedirectToLogiAaction();
@@ -39,24 +39,28 @@ namespace MyProject.MyAttributes
                     RedirectToLogiAaction();
                     return;
                 }
-                    CompanyInfo model = BaseBll.db.CompanyInfo.Where(o => o.CompanyId == id).FirstOrDefault();
-                    if (model == null)
-                    {
-                        RedirectToLogiAaction();
-                        return;
-                    }
-                    else
-                    {
-                        HttpContext.Current.Session[Key.Current_Company] = model;
-                        filterContext.Controller.ViewBag.UserName = model.Username;
-                        filterContext.Controller.ViewBag.LoginType = "Company";
-                    }
+                CompanyInfo model = BaseBll.db.CompanyInfo.Where(o => o.CompanyId == id).FirstOrDefault();
+                if (model == null)
+                {
+                    RedirectToLogiAaction();
+                    return;
+                }
+                else
+                {
+                    HttpContext.Current.Session[Key.Current_Company] = model;
+                    filterContext.Controller.ViewBag.UserName = model.Username;
+                    filterContext.Controller.ViewBag.LoginType = "Company";
+                    filterContext.Controller.ViewBag.CompanyName = model.CompanyName;
+                    filterContext.Controller.ViewBag.CompanyId = model.CompanyId;
+                }
             }
             else
             {
                 CompanyInfo ci = (CompanyInfo)HttpContext.Current.Session[Key.Current_Company];
                 filterContext.Controller.ViewBag.UserName = ci.Username;
                 filterContext.Controller.ViewBag.LoginType = "Company";
+                filterContext.Controller.ViewBag.CompanyName = ci.CompanyName;
+                filterContext.Controller.ViewBag.CompanyId = ci.CompanyId;
             }
         }
 
@@ -65,7 +69,7 @@ namespace MyProject.MyAttributes
         /// </summary>
         private void RedirectToLogiAaction()
         {
-           HttpContext.Current.Response.Write("<script>alert('你还未登录');location.href='/login/index'</script>");
+            HttpContext.Current.Response.Write("<script>alert('你还未登录');location.href='/login/index'</script>");
             HttpContext.Current.Response.End();
         }
     }

@@ -159,6 +159,7 @@ namespace MyProject.Controllers
                 model.Sex = postModel.Sex;
                 model.Specialty = postModel.Specialty;
                 model.Tel = postModel.Tel;
+                model.Avatar = postModel.Avatar;
                 db.SaveChanges();
                 return Content("Success");
 

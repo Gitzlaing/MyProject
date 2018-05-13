@@ -1,4 +1,5 @@
-﻿
+﻿@model MyProject.EntitiesModel.Jobs
+
 @{
     ViewBag.Title = "Release";
     Layout = "~/Areas/Company/Views/Shared/ComapnyBasePage.cshtml";
@@ -6,7 +7,59 @@
 
 
 
+@*<span>工作类型:</span>
+    @Html.DropDownListFor(o => o.JobTypeId, ViewBag.JobTypeList as List<SelectListItem>, new { @class = "form-control" })*@
+
+<form class="form-horizontal" action="/Company/Job/release" method="post" onsubmit="return releaseJob();">
+    <input type="hidden" name="CompanyId" value="@ViewBag.CompanyId" />
+    <div class="form-group">
+        <label class="col-sm-3 control-label">职位类型：</label>
+        <div class="col-sm-9">
+            @Html.DropDownListFor(o => o.TypeId, ViewBag.JobTypeList as List<SelectListItem>, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            职位名称：
+        </label>
+        <div class="col-sm-9">
+            @Html.EditorFor(o => o.JobName, new { htmlattributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(o => o.JobName)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">薪资：</label>
+        <div class="col-sm-9">
+          <span>最低</span>  @Html.EditorFor(o => o.SalaryLower, new { htmlattributes = new { style = "width:80px;display:inline;", @class = "form-control" } }) <span>~</span>
+          <sapn>最高</sapn>  @Html.EditorFor(o => o.SalaryUpper, new { htmlattributes = new { style = "width:80px;display:inline;", @class = "form-control" } }) &nbsp;&nbsp;<span>元</span>
+            @Html.ValidationMessageFor(o => o.SalaryLower)
+            @Html.ValidationMessageFor(o => o.SalaryUpper)
+            <span id="salaryMsg"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">需求人数：</label>
+        <div class="col-sm-9">
+            @Html.EditorFor(o => o.DemandNum, new { htmlattributes = new { style = "width:80px;display:inline;", @class = "form-control" } } ) <span>人</span>
+            @Html.ValidationMessageFor(o => o.DemandNum)
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">职位描述：</label>
+        <div class="col-sm-9">
+            @Html.EditorFor(o => o.Describe,new { htmlattributes = new { style = "width:500px;height:300px", @class = "form-control" } })
+            @Html.ValidationMessageFor(o=>o.Describe)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9"><input type="submit" name="name" id="btnSubmitJob" value="发布" class="btn btn-default btn-lg"/>@ViewBag.Msg</div>
+
+    </div>
+</form>
+
 <script type="text/javascript">
     $('#myTabs li').eq(1).addClass('active');
 </script>
+<script src="~/Scripts/company.js"></script>
+
 

@@ -38,6 +38,16 @@
                     </a>
                 </div>
             }
+            else
+            {
+                <div style="position:relative;">
+                    <a href="javascript:;">
+                        <img class="img-thumbnail" style="width:120px;height:150px;" id="thumbImg" src= "/Images/AvatarDefault.png" />
+                        <input type="file" id="image" name="image" style="position:absolute;z-index:2;opacity:0; top:0;left:0;background-color:transparent; color:transparent; width:120px;height:150px;cursor:pointer;" onchange="$('#upload-Avatarinfo').html($(this).val()); " />
+                        @*$('#thumbImg').attr('src', window.URL.createObjectURL($(this)[0].files[0])); 本地路径获取方法 *@
+                    </a>
+                </div>
+            }
             <span id="upload-Avatarinfo"></span>
         </td>
     </tr>
@@ -53,7 +63,7 @@
     </tr>
     <tr>
         <th>出生日期：</th>
-        <td>@Html.EditorFor(o => o.BirthDate ,new { htmlAttributes = new { @class = "form-control", style = "width:200px;" } })</td>
+        <td>@Html.EditorFor(o => o.BirthDate, new { htmlAttributes = new { @class = "form-control", style = "width:200px;" } })</td>
         <td class="tip">@Html.ValidationMessageFor(o => o.BirthDate)</td>
     </tr>
     <tr>

@@ -24,6 +24,7 @@ namespace MyProject.Controllers
         [UserCheck]
         public ActionResult HomePage()
         {
+
             return View();
         }
        

@@ -30,5 +30,11 @@ namespace MyProject.Opportal.Controllers
             }
             return View(model);
         }
+        
+        public ActionResult Exit()
+        {
+            Session[Key.Current_Operator] = null;
+            return RedirectToAction("Index", "Login");
+        }
     }
 }

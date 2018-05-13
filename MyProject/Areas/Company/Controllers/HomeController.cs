@@ -17,18 +17,27 @@ namespace MyProject.Areas.Company.Controllers
         public ActionResult Index()
         {
             CompanyInfo model = (CompanyInfo)Session[Key.Current_Company];
-                ViewBag.CompanyName = model.CompanyName;
+            ViewBag.CompanyName = model.CompanyName;
             return View(model);
         }
 
         public ActionResult Status()
         {
             CompanyInfo model = (CompanyInfo)Session[Key.Current_Company];
+            Session[Key.Current_Company] = BaseBll.db.CompanyInfo.Where(o => o.CompanyId == model.CompanyId).FirstOrDefault();
+            model = (CompanyInfo)Session[Key.Current_Company];
             ViewBag.CompanyStatus = model.IsIdentify;
             return View(model);
         }
 
-        
+        [HttpPost]
+        public JsonResult GetIdentityStauts(int companyId)
+        {
+          bool isIdentity =  BaseBll.db.CompanyInfo.Where(o => o.CompanyId == companyId).Select(o => o.IsIdentify).FirstOrDefault();
+
+            return Json(new { isIdentity = isIdentity }, JsonRequestBehavior.AllowGet);
+        }
+
         #region Remote验证公司用户名是否重复Action
         /// <summary>
         /// Remote验证公司用户名是否重复Action

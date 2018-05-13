@@ -1,4 +1,5 @@
 ﻿@model MyProject.EntitiesModel.CompanyInfo
+    @using MyProject.Hubs
 @{
     ViewBag.Title = "账户状态";
     ViewBag.CompanyName = Model.CompanyName;
@@ -6,22 +7,69 @@
 }
 <style type="text/css">
     #companyStatus {
-        margin:0 auto;
-        width:250px;
+        margin: 0 auto;
+        width: 250px;
     }
 </style>
 
-<div id="companyStatus">
-        @if (ViewBag.CompanyStatus)
-        {
-          <h3 style="color:forestgreen">已通过验证</h3>
-        }
-        else
-        {
-            <h3 style="color:red">未通过验证</h3>
-        }
-</div>
 
-<script>
-    $('#myTabs li').eq(4).addClass('active');
+<div id="companyStatus">
+    @if (ViewBag.CompanyStatus)
+    {
+        <h3 style="color:forestgreen">已通过验证</h3>
+    }
+    else
+    {
+        <h3 style="color:red">未通过验证</h3>
+    }
+</div>
+<script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
+<script src="~/signalr/hubs"></script>
+<script type="text/javascript">
+    $('#myTabs li').eq(5).addClass('active');
+
+    @*function getStatus() {
+        var status = true;
+        var postdata = { companyId:@Model.CompanyId};
+        $.ajax({
+            url: "/company/home/GetIdentityStauts",
+            dataType: 'json',
+            type: 'post',
+            data: postdata,
+            async: false,
+            success: function (data) {
+                if (!data.isIdentity) {
+                   status= false;
+                }
+            }
+        });
+        return status;
+        //$.post('/company/home/GetIdentityStauts', postdata, function (data) {
+        //    if (!data.isIdentity) {
+        //        return false;
+        //    }
+        //    else {
+        //        return true;
+        //    }
+        //}, 'json');
+    };
+
+    $(function () {
+        var statushub = $.connection.myHub;        // 声明代理引用集线器
+        statushub.client.identityStatus = function () {    //创建方法使集线器同步消息
+            if (getStatus() == true) {
+                $('#companyStatus').html('<h3 style="color:forestgreen">已通过验证</h3>');
+            }
+            else {
+                $('#companyStatus').html('<h3 style="color:red">未通过验证</h3>');
+            }
+        };
+        //开始连接
+        $.connection.hub.start();
+        //.done(function () { statushub.server.companyIdentityStatus(); });
+
+        @*.done(function () {
+            statushub.server.companyIdentityStatus(@Model.CompanyId);
+        });
+    });   *@
 </script>

@@ -35,7 +35,7 @@
                 }
                 else
                 {
-                    <p class="navbar-text navbar-right" style="color:black;">欢迎您，<a href="/@ViewBag.LoginType/Edit/BaseInfo">@ViewBag.UserName</a> &nbsp;&nbsp;<a onclick="return confirm('是否退出当前用户？');" href="/login/ClearUserSession" >退出</a></p>
+                    <p class="navbar-text navbar-right" style="color:black;">欢迎您，<a href=@(ViewBag.LoginType=="User"?"/User/Edit/BaseInfo":"/Company")>@ViewBag.UserName</a> &nbsp;&nbsp;<a onclick="return confirm('是否退出当前用户？');" href="/login/ClearUserSession">退出</a></p>
                 }
             </div>
         </div>
