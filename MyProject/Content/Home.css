@@ -1,0 +1,9 @@
+﻿.divCompanyImg {
+    display: inline-block;
+    margin:5px 10px;
+}
+
+#btnApplyJob:hover {
+    background-color:forestgreen;
+}
+

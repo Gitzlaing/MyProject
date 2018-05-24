@@ -1,0 +1,41 @@
+﻿@model MyProject.EntitiesModel.UserInfo
+@{
+    ViewBag.Title = "用户简历";
+    Layout = "~/Areas/Company/Views/Shared/ComapnyBasePage.cshtml";
+}
+<div class="row">
+    <div class="col-md-3">
+        <ul class="list-group">
+            <li class="list-group-item"><a href="/Company/Edit/Resume">简历箱</a></li>
+            <li class="list-group-item"><a href="">历史简历</a> </li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <div class="panel panel-info">
+            <div class="panel-heading">@Model.Username 的简历</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-3 thumbnail" style="width:170px;height:220px; text-align:center;">
+                        <img src="/company/images/GetUserAvatar/@Model.Uid" />
+                        <div class="caption"><h4>@Model.Name</h4></div>
+                    </div>
+                    <div class="col-sm-5 col-sm-offset-4">
+                        <table style="width:100%;">
+                            <tr>
+                                <td><strong>联系电话：</strong>@Model.Tel</td>
+                                <td><strong>专业：</strong>@Model.Specialty</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <h4>项目经验</h4>
+                <h4>工作经验</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#myTabs li').eq(4).addClass('active');
+</script>

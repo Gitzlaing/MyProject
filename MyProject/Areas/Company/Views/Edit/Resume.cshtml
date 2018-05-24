@@ -1,11 +1,98 @@
-﻿
+﻿@using MyProject.EntitiesModel
+@model List<ApplyJob>
 
 @{
     ViewBag.Title = "Resume";
     Layout = "~/Areas/Company/Views/Shared/ComapnyBasePage.cshtml";
 }
+<div class="row">
+    <div class="col-md-3">
+        <ul class="list-group">
+            <li class="list-group-item"><a href="/Company/Edit/Resume">简历箱</a></li>
+            <li class="list-group-item"><a href="">历史简历</a> </li>
+        </ul>
+    </div>
 
+    <div id="userResumeContent" class="col-md-9">
+        <h4>所收简历</h4>
+        <div class="alert alert-danger" id="divError" hidden>
+            <button type="button" class="close" id="btnClose">
+                &times;
+            </button>
+           操作失败，请稍后重试
+        </div>
+        @if (Model != null)
+        {
+            foreach (ApplyJob item in Model)
+            {
+                TimeSpan now = new TimeSpan(DateTime.Now.Ticks);
+                TimeSpan date = new TimeSpan(item.Date.Ticks);
+                TimeSpan ts = now.Subtract(date);
+                int days = ts.Days;
+                int hours = ts.Hours;
+                int mins = ts.Minutes;
+                <div class="panel panel-info resumeBox">
+                    <div class="resumeBox_user">
+                        <img src="/company/Images/GetUserAvatar/@item.Uid" class="userAvatar" />
+                        @item.UserInfo.Name
+                    </div>
+                    <div class="resumeBox_job">
+                        <strong>应聘职位:@item.Jobs.JobName</strong><br />
+                        <strong class="text-muted"><span class="glyphicon glyphicon-time"></span>:&nbsp;@days 天 @hours 小时 @mins 分钟前 </strong>
+                    </div>
+                    <div class="resumeBox_edit">
+                        <button class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span> 回复</button>
+                        <a class="btn btn-default" href="/Company/Resume/UserResume?uid=@item.Uid">查看简历</a>
+                        <input type="button" name="name" value="安排面试" class="btn btn-default" />
+                        <input type="button" name="name" value="拒绝简历" class="btn btn-default" onclick="refuseResume(@item.Uid,@item.JobId);" />
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+<div class="modal fade" role="dialog" id="myModal" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
-<script>
-    $('#myTabs li').eq(4).addClass('active');
+<script type="text/javascript">
+    $('#myTabs li').eq(3).addClass('active');
+    //$('#myModal').modal({
+    //    //remote: "test/test.js",//可以填写一个url，会调用jquery load方法加载数据
+    //    backdrop: "static",//指定一个静态背景，当用户点击背景处，modal界面不会消失
+    //    keyboard: true//当按下esc键时，modal框消失
+    //});
+    $('#btnClose').click(function () {
+        $('#divError').hide();
+    }
+    );
 </script>
+
+
+@*<script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>*@
+
+
+
+@*<canvas id="canvas"></canvas>
+    <video id="video"></video>
+    <script src="~/Scripts/mobileFix.mini.js"></script>
+    <script src="~/Scripts/exif.js"></script>
+    <script src="~/Scripts/lrz.bundle.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/videoChat.js"></script>*@

@@ -1,0 +1,36 @@
+﻿@model MyProject.EntitiesModel.CompanyInfo
+@using Webdiyer.WebControls.Mvc
+@using MyProject.EntitiesModel
+@{
+    ViewBag.Title = Model.CompanyName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Hidden("companyId", Model.CompanyId)
+<h2>@Model.CompanyName</h2>
+<hr />
+<h4>公司简介</h4>
+<p>
+    &nbsp;&nbsp; @Model.Describe
+</p>
+<br /><br />
+<h4 style="color:blue;">招聘岗位</h4>
+<hr />
+
+
+
+@Html.Partial("CompanyJobList", ViewBag.JobList as PagedList<Jobs>)
+
+
+
+@*<div style="height:1000px">
+    <canvas id="canvas"></canvas>
+    <video id="video"></video>
+</div>*@
+
+@*<script src="~/Scripts/mobileFix.mini.js"></script>
+<script src="~/Scripts/exif.js"></script>
+
+<script src="~/Scripts/lrz.bundle.js"></script>
+<script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
+<script src="~/signalr/hubs"></script>
+<script src="~/Scripts/videoChat.js"></script>*@

@@ -66,6 +66,11 @@ namespace MyProject.Areas.User.Controllers
             return View();
         }
 
+        /// <summary>
+        /// 获取用户头像    
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public FileResult GetAvatarImg()
         {
             UserInfo model = (UserInfo)Session[Key.Current_User];
@@ -73,7 +78,7 @@ namespace MyProject.Areas.User.Controllers
             {
                 return null;
             }
-            if (model.Avatar == null)
+            if (model.Avatar == null) 
             {
                 return null;
             }

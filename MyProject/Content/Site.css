@@ -25,4 +25,12 @@ select
 textarea{
     max-width:600px;
 }
+p {
+    text-indent:2em;
+}
 
+.companyImg
+{
+   width:400px;
+   height:120px;
+}

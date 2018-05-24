@@ -37,6 +37,14 @@
         }
     </style>
     <script type="text/javascript">
+        document.onkeydown = function (e) {
+            e = e || event;
+            if (e.keyCode == 13) {
+                $('#btnSubmit').click();
+            }
+        }
+
+        $('#btnSubmit').keydown()
         function refreshCaptcha() {
             $('#imgCaptcha').attr('src', '/login/GetimgAction?r=' + Math.random())
         }
@@ -129,7 +137,7 @@
                 </td>
             </tr>
             <tr>
-                <td><input type="button" name="btnSubmit" value="登录" class="btn btn-primary" onclick="login();" /></td>
+                <td><input type="button" id="btnSubmit" value="登录" class="btn btn-primary" onclick="login();" /></td>
                 <td><a href="/register/1" style="display:inline;">个人注册</a>/<a href="/register/2" style="display:inline;">企业注册</a>&nbsp;&nbsp;&nbsp;<span class="tip4"></span></td>
             </tr>
         </table>

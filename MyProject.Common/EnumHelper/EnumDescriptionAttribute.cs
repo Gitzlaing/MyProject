@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace MyProject.Common
 {
-    [AttributeUsage(AttributeTargets.Field,AllowMultiple =true,Inherited =false )]
-   public class EnumDescriptionAttribute :Attribute
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true, Inherited = false)]
+    public class EnumDescriptionAttribute : Attribute
     {
-        public string Desc  { get; set; }
-        public  EnumDescriptionAttribute(string desc)
+        public string Desc { get; set; }
+        public EnumDescriptionAttribute(string desc)
         {
             this.Desc = desc;
         }

@@ -11,14 +11,17 @@ namespace MyProject.EntitiesModel
             : base("name=EFDbContext")
         {
         }
-
-        public virtual DbSet<Category> Category { get; set; }
+        
         public virtual DbSet<CompanyInfo> CompanyInfo { get; set; }
         public virtual DbSet<Jobs> Jobs { get; set; }
         public virtual DbSet<Operator> Operator { get; set; }
         public virtual DbSet<UserInfo> UserInfo { get; set; }
 
         public virtual DbSet<JobType> JobType { get; set; }
+        public virtual DbSet<ApplyJob> ApplyJob { get; set; }
+
+        public virtual DbSet<WorkExperience> WorkExperience { get; set; }
+        public virtual DbSet<ProjectExperience> ProjectExperience { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

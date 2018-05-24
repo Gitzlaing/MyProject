@@ -1,0 +1,71 @@
+﻿@using Webdiyer.WebControls.Mvc
+@using MyProject.EntitiesModel
+@model PagedList<Jobs>
+@{
+    List<int> userJobList = ViewBag.UserJobList as List<int>;
+}
+<div id="divCompanyJobList">
+    <table class="table table-hover">
+        <tr>
+            <th>职位类型</th>
+            <th>职位名称</th>
+            <th>起始薪资</th>
+            <th>需求人数</th>
+            <th>职位描述</th>
+            <th>发布时间</th>
+            <th>操作</th>
+        </tr>
+        @if (Model.Count > 0 && Model != null)
+        {
+            foreach (Jobs item in Model)
+            {
+                <tr>
+                    <td>@item.JobType.Name</td>
+                    <td>@item.JobName</td>
+                    <td>@item.SalaryLower.ToString("0.##")~@item.SalaryUpper.ToString("0.##") 元</td>
+                    <td>@item.DemandNum</td>
+                    <td>@(item.Describe.Length > 20 ? item.Describe.Substring(0, 20) + "...." : item.Describe)</td>
+                    <td>@item.CreateDate.ToString("d")</td>
+                    <td>
+                        @if (userJobList != null)
+                        {
+                            if (userJobList.Contains(item.JobId))
+                            {
+                                <input type="button" value="已申请该职位" class="btn btn-primary" style="background-color:forestgreen;" />
+                            }
+                            else
+                            {
+                                <input type="button" value="申请该职位" class="btn btn-primary" id="btnApplyJob" onclick="applyJob(@(ViewBag.Uid==null?"0":ViewBag.Uid),@item.CompanyId,@item.JobId,$(this));" />
+                            }
+                        }
+                        else
+                        {
+                            <input type="button" value="申请该职位" class="btn btn-primary" id="btnApplyJob" onclick="applyJob(@(ViewBag.Uid==null?"0":ViewBag.Uid),@item.CompanyId,@item.JobId,$(this));" />
+                        }
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+               <tr><td colspan="7" style="text-align:center;"><h2>暂无招聘岗位</h2></td></tr>
+        }
+    </table>
+    @Ajax.Pager(Model, new PagerOptions
+    {
+        
+        Id = "JobList",
+        PageIndexParameterName = "page",
+        FirstPageText = "首页",
+        PrevPageText = "上一页",
+        NextPageText = "下一页",
+        LastPageText = "末页",
+        ContainerTagName = "ul",
+        CssClass = "pagination",
+        CurrentPagerItemTemplate = "<li class=\"active\"><a href=\"#\">{0}</a></li>",
+        DisabledPagerItemTemplate = "<li class=\"disabled\"><a>{0}</a></li>",
+        PagerItemTemplate = "<li>{0}</li>"
+    }, new MvcAjaxOptions { UpdateTargetId = "divCompanyJobList" })
+</div>
+
+<script src="~/Scripts/home.js"></script>

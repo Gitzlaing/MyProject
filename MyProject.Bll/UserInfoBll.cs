@@ -36,6 +36,17 @@ namespace MyProject.Bll
         }
         #endregion
 
+        #region 获取一个实体
+        /// <summary>
+        /// 获取一个实体
+        /// </summary>
+        /// <returns></returns>
+        public UserInfo GetModel(int uid = 0)
+        {
+            return db.UserInfo.Where(o => o.Uid == uid).FirstOrDefault();
+        }
+        #endregion
+
         #region 是否存在求职用户名
         /// <summary>
         /// 是否存在求职用户名
@@ -142,5 +153,26 @@ namespace MyProject.Bll
             return true;
         }
         #endregion
+
+        /// <summary>
+        /// 获取求职用户求职的工作ID列表
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="status">求职工作状态类型</param>
+        /// <returns></returns>
+        public List<int> GetUserJobIdList(int uid, int status)
+        {
+            return db.ApplyJob.Where(o => o.Uid == uid).Where(o => o.Status == status).Select(o => o.JobId).Distinct().ToList();
+        }
+
+        /// <summary>
+        /// 获取用户头像
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <returns></returns>
+        public byte[] GetAvatar(int uid)
+        {
+            return db.UserInfo.Where(o => o.Uid == uid).Select(e => e.Avatar).FirstOrDefault();
+        }
     }
 }

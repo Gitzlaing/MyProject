@@ -4,5 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>招聘网</h2>
+<div id="companyImgListDiv">
+    @foreach (var item in ViewBag.CompanyList)
+    {
+        <div class="divCompanyImg">
+            <a href="/Home/CompanyInfo/@item.CompanyId" target="_blank"><img src="@item.ImgUrl" class="img-thumbnail companyImg"/></a>
+        </div>
+    }
+</div>
 

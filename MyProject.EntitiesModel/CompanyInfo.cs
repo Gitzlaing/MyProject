@@ -14,14 +14,15 @@ namespace MyProject.EntitiesModel
         public CompanyInfo()
         {
             Jobs = new HashSet<Jobs>();
+            ApplyJob = new HashSet<ApplyJob>();
         }
 
         [Key]
         public int CompanyId { get; set; }
 
         [StringLength(100)]
-        [Required(ErrorMessage ="*请输入账号")]
-        [Remote("CheckUsername","Home","Company",ErrorMessage ="*已存在的用户名！")]
+        [Required(ErrorMessage = "*请输入账号")]
+        [Remote("CheckUsername", "Home", "Company", ErrorMessage = "*已存在的用户名！")]
         public string Username { get; set; }
 
         [StringLength(50)]
@@ -45,7 +46,7 @@ namespace MyProject.EntitiesModel
         [StringLength(20)]
         public string Manager { get; set; }
 
-        public int? Click { get; set; } 
+        public int? Click { get; set; }
 
         [StringLength(100)]
         public string ImgUrl { get; set; }
@@ -66,5 +67,7 @@ namespace MyProject.EntitiesModel
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Jobs> Jobs { get; set; }
+
+        public virtual ICollection<ApplyJob> ApplyJob { get; set; }
     }
 }

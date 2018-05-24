@@ -7,6 +7,7 @@ using MyProject.EntitiesModel;
 using System.Web;
 using MyProject.Common;
 using Webdiyer.WebControls.Mvc;
+using System.Data;
 
 namespace MyProject.Bll
 {
@@ -54,7 +55,7 @@ namespace MyProject.Bll
 
         }
         #endregion
-        
+
         #region 更新企业账号信息
         /// <summary>
         /// 更新企业账号信息
@@ -91,7 +92,7 @@ namespace MyProject.Bll
             {
                 return false;
             }
-        } 
+        }
         #endregion
 
         #region 是否存在企业用户名
@@ -141,7 +142,7 @@ namespace MyProject.Bll
         }
 
 
-        #region 获取分页数据表,mvc分页控件PageList
+        #region 获取分页数据表,mvc分页控件PagedList
         /// <summary>
         /// 获取分页数据表,mvc分页控件PageList
         /// </summary>
@@ -158,7 +159,6 @@ namespace MyProject.Bll
             return pagedList;
         }
         #endregion
-
 
         #region 由企业ID获取Model
         /// <summary>
@@ -192,6 +192,74 @@ namespace MyProject.Bll
             {
                 return false;
             }
+        }
+        #endregion
+
+        #region 增加公司点击数
+        /// <summary>
+        /// 增加公司点击数
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <returns></returns>
+        public bool AddClickNum(int companyId)
+        {
+            CompanyInfo updateClick = db.CompanyInfo.Where(o => o.CompanyId == companyId).FirstOrDefault();
+            updateClick.Click += 1;
+            try
+            {
+                db.Configuration.ValidateOnSaveEnabled = false;
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
+        }
+        #endregion
+
+
+        /// <summary>
+        /// 获取用户简历
+        /// </summary>
+        /// <returns></returns>
+        public List<UserInfo> GetUserResume(int companyId)
+        {
+            List<ApplyJob> applyList = db.ApplyJob.Where(o => o.CompanyId == companyId).ToList();  //公司工作，用户id List 
+            List<UserInfo> userList = new List<UserInfo>(); //用户简历List
+            if (applyList != null)
+            {
+                foreach (ApplyJob item in applyList)
+                {                  
+                    userList.Add(item.UserInfo);
+                }
+            }
+            return userList;
+        }
+
+        #region 获取公司职位工作id列表
+        /// <summary>
+        /// 获取公司职位工作id列表
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <returns></returns>
+        public List<int> GetJobIdList(int companyId)
+        {
+            List<int> jobIdList = db.Jobs.Where(o => o.CompanyId == companyId).Select(o => o.JobId).ToList();
+            return jobIdList;
+        }
+        #endregion
+
+        #region 获取公司应聘用户id
+        /// <summary>
+        /// 获取公司职位工作id列表
+        /// </summary>
+        /// <param name="companyId"></param>
+        /// <returns></returns>
+        public List<int> GetJobUserIdList(int companyId)
+        {
+            List<int> userIdList = db.ApplyJob.Where(o => o.CompanyId == companyId).Select(o => o.Uid).Distinct().ToList();
+            return userIdList;
         }
         #endregion
     }

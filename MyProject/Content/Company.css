@@ -1,0 +1,39 @@
+﻿.resumeBox {
+    width: 1000px;
+    height: 150px; 
+    position:relative;
+}
+
+
+.userAvatar {
+    width: 80px;
+    height: 90px;
+}
+
+.resumeBox_user {
+    margin-top: 15px;
+    width: 80px;
+    font-weight: 700;
+    text-align: center;
+    float: left;
+}
+
+.resumeBox_job {
+    overflow: hidden;
+    height: 150px;
+    width:400px;
+    line-height:70px;
+    text-align:center;
+}
+
+
+.resumeBox_edit {
+    width:400px;
+    height:60px;
+    line-height:70px;
+    text-align:end;
+   bottom:0px;
+   right:0px;
+   position:absolute;
+}
+

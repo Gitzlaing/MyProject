@@ -1,0 +1,13 @@
+﻿.myJob_ApplyJob {
+    width: 550px;
+    height:110px;
+    border: 1px solid #428BCA;
+   margin-top:10px;
+}
+
+.myJob_ApplyJob h5{
+   color:gray;
+}
+    .myJob_ApplyJob .myJobStatus {
+        text-align:right;
+    }

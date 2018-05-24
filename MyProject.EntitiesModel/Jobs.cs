@@ -9,7 +9,11 @@ namespace MyProject.EntitiesModel
 
     public partial class Jobs
     {
-        public int Id { get; set; }
+        public Jobs(){
+            this.ApplyJob = new HashSet<ApplyJob>();
+        }
+        [Key]
+        public int JobId { get; set; }
 
         public int CompanyId { get; set; }
         
@@ -26,7 +30,7 @@ namespace MyProject.EntitiesModel
 
         [RegularExpression(@"\d+",ErrorMessage ="请输入数字")]
         [Required(ErrorMessage ="请输入需求人数")]
-        [DisplayName("工资信息")]
+        [DisplayName("需求人数")]
         public int? DemandNum { get; set; }
 
         [Column(TypeName = "money")]
@@ -40,6 +44,8 @@ namespace MyProject.EntitiesModel
         public decimal SalaryLower { get; set; }
 
         public DateTime CreateDate { get; set; }
+
+        public ICollection<ApplyJob> ApplyJob { get; set; }
 
         //外键导航属性
 

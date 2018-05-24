@@ -161,8 +161,7 @@ namespace MyProject.Controllers
                 model.Tel = postModel.Tel;
                 model.Avatar = postModel.Avatar;
                 db.SaveChanges();
-                return Content("Success");
-
+                return Content("Success");                
             }
             else
             {

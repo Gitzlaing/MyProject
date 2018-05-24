@@ -1,5 +1,5 @@
 ﻿using MyProject.EntitiesModel;
-using MyProject.Models;
+using MyProject.Bll;
 using MyProject.MyAttributes;
 using System;
 using System.Collections.Generic;
@@ -8,9 +8,12 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
+using Webdiyer.WebControls.Mvc;
 
 namespace MyProject.Controllers
 {
+    [UserCheck]
     public class HomeController : Controller
     {
         //值类型不允许赋值为null
@@ -21,13 +24,20 @@ namespace MyProject.Controllers
             return View("/views/Company/index.cshtml");
         }
 
-        [UserCheck]
+
         public ActionResult HomePage()
         {
-
+            EFDbContext db = BaseBll.db;
+            var companyList = db.CompanyInfo.Where(o => o.IsIdentify == true)
+                                             .Select(o => new
+                                             {
+                                                 o.ImgUrl,
+                                                 o.CompanyId
+                                             }).ToList();
+            ViewBag.CompanyList = JsonConvert.DeserializeObject(JsonConvert.SerializeObject(companyList));        //匿名类序列化成json对象
             return View();
         }
-       
+
         public ActionResult Index()
         {
             #region 笔记
@@ -55,5 +65,25 @@ namespace MyProject.Controllers
             return View();
         }
 
+        //公司详情页
+        public ActionResult CompanyInfo(int id = 0, int page = 1)
+        {
+            CompanyInfoBll bll = new CompanyInfoBll();
+            UserInfoBll userbll = new UserInfoBll();
+            CompanyInfo model = bll.GetModelById(id);
+            bll.AddClickNum(id);
+
+            ViewBag.UserJobList = userbll.GetUserJobIdList((int)ViewBag.Uid,0);     //获取用户申请的工作id列表
+
+            //获取公司岗位信息
+            JobsBll jobsbll = new JobsBll();
+            PagedList<Jobs> jobList = jobsbll.GetPagedList(page, 10, id);
+            ViewBag.JobList = jobList;
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("CompanyJobList", jobList);
+            }
+            return View(model);
+        }
     }
 }

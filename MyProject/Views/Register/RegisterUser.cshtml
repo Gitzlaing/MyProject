@@ -32,7 +32,7 @@
     }
 </script>
 
-<form id="registerUserForm" action="/Register/AddUserInfo" method="post" onsubmit="return mySubmit();">
+<form id="registerUserForm" action="/Register/AddUserInfo" enctype="multipart/form-data" method="post" onsubmit="return mySubmit();">
     @Html.Partial("/views/partial/UserInfo.cshtml")
 </form>
 <script type="text/javascript">

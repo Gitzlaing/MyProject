@@ -83,7 +83,7 @@ namespace MyProject.Bll
         /// <returns></returns>
         public bool DeleteJob(int jobId)
         {
-            Jobs model = new Jobs { Id = jobId };
+            Jobs model = new Jobs { JobId = jobId };
             db.Jobs.Attach(model);
             db.Jobs.Remove(model);
             try
@@ -98,5 +98,8 @@ namespace MyProject.Bll
 
             return true;
         }
+
+
+
     }
 }

@@ -11,11 +11,18 @@ namespace MyProject.EntitiesModel
     [Table("UserInfo")]
     public partial class UserInfo
     {
+        public UserInfo()
+        {
+            this.ApplyJob = new HashSet<ApplyJob>();
+            this.WorkExperience = new HashSet<WorkExperience>();
+            this.ProjectExperience = new HashSet<ProjectExperience>();
+        }
+
         [Key]
         public int Uid { get; set; }
         [Required(ErrorMessage = "*请输入用户名")]
         [StringLength(10, MinimumLength = 4, ErrorMessage = "*长度为4~10位")]
-        [Remote("CheckUsername", "User",AreaReference.UseRoot, ErrorMessage = "*该用户已存在!", HttpMethod = "post")]
+        [Remote("CheckUsername", "User", AreaReference.UseRoot, ErrorMessage = "*该用户已存在!", HttpMethod = "post")]
         [RegularExpression(@"^[a-zA-Z0-9_-]*$", ErrorMessage = "*包含非法字符,由数字、字母、下划线组成")]
         public string Username { get; set; }
 
@@ -33,7 +40,7 @@ namespace MyProject.EntitiesModel
 
         public bool? Sex { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime? BirthDate { get; set; }
 
@@ -60,5 +67,13 @@ namespace MyProject.EntitiesModel
 
         [DataType(DataType.DateTime)]
         public DateTime? CreateDate { get; set; }
+
+
+
+        public ICollection<ApplyJob> ApplyJob { get; set; }
+
+        public ICollection<ProjectExperience> ProjectExperience { get; set; }
+
+        public ICollection<WorkExperience> WorkExperience { get; set; }
     }
 }

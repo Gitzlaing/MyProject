@@ -38,24 +38,28 @@ namespace MyProject.MyAttributes
                 {
                     return;
                 }
-                    UserInfo model = db.UserInfo.Where(o => o.Uid == id).FirstOrDefault();
-                    if (model == null)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        HttpContext.Current.Session[Key.Current_User] = model;
-                        filterContext.Controller.ViewBag.UserName = model.Username;
-                        filterContext.Controller.ViewBag.LoginType = "User";
-                    }
+                UserInfo model = db.UserInfo.Where(o => o.Uid == id).FirstOrDefault();
+                if (model == null)
+                {
+                    return;
+                }
+                else
+                {
+                    HttpContext.Current.Session[Key.Current_User] = model;
+                    filterContext.Controller.ViewBag.UserName = model.Username;
+                    filterContext.Controller.ViewBag.Uid = model.Uid;
+                    filterContext.Controller.ViewBag.Name = model.Name;
+                    filterContext.Controller.ViewBag.LoginType = "User";
+                }
             }
             else
             {
                 UserInfo ui = (UserInfo)HttpContext.Current.Session[Key.Current_User];
                 filterContext.Controller.ViewBag.UserName = ui.Username;
+                filterContext.Controller.ViewBag.Uid = ui.Uid;
+                filterContext.Controller.ViewBag.Name = ui.Name;
                 filterContext.Controller.ViewBag.LoginType = "User";
-               
+
             }
         }
     }

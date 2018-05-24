@@ -7,16 +7,17 @@
     #btnNext {
         display: none;
     }
-    #btnSubmit{
-        display:none;
+
+    #btnSubmit {
+        display: none;
     }
 </style>
 
 <form action="/User/Edit/BaseInfo" method="post" enctype="multipart/form-data">
-@{Html.RenderPartial("/Views/Partial/UserInfo.cshtml", Model);}
-    <input type="submit" name="name" value="保存" class="btn btn-primary" style="width:150px;height:45px;"/>&nbsp;&nbsp;@ViewBag.Msg
+    @{Html.RenderPartial("/Views/Partial/UserInfo.cshtml", Model);}
+    <div style="padding-left:100px"> <input type="submit" name="name" value="保存" class="btn btn-primary" style="width:150px;height:45px;" />&nbsp;&nbsp;@ViewBag.Msg</div>
 </form>
 <script>
-    $('#myTabs li').eq(0).addClass('active');
+            //$('#myTabs li').eq(1).addClass('active');
 </script>
 

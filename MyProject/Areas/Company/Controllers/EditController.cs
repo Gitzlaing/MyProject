@@ -19,7 +19,7 @@ namespace MyProject.Areas.Company.Controllers
             CompanyInfo currentModel = (CompanyInfo)Session[Key.Current_Company];
             return View(currentModel);
         }
-       
+
 
 
         /// <summary>
@@ -31,12 +31,12 @@ namespace MyProject.Areas.Company.Controllers
         public ActionResult UpdateInfo(CompanyInfo model)
         {
             CompanyInfo currentModel = (CompanyInfo)Session[Key.Current_Company];
-            if (model!=null)
+            if (model != null)
             {
                 if (bllCompany.UpdateCompanyInfo(currentModel.CompanyId, model))
                 {
                     ViewBag.Msg = "修改成功";
-                    currentModel= (CompanyInfo)Session[Key.Current_Company];
+                    currentModel = (CompanyInfo)Session[Key.Current_Company];
                 }
                 else
                 {
@@ -47,13 +47,15 @@ namespace MyProject.Areas.Company.Controllers
         }
 
         /// <summary>
-        /// 简历管理
+        /// 简历管理,获取未处理的简历
         /// </summary>
         /// <returns></returns>
-       public ActionResult Resume()
+        public ActionResult Resume()
         {
-            return View();
+            ApplyJobBll applyBll = new ApplyJobBll();
+            List<ApplyJob> userResumeList = applyBll.GetCompanyList(ViewBag.CompanyId,0);
+            return View(userResumeList);
         }
-        
+
     }
 }

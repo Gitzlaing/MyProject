@@ -14,6 +14,7 @@ namespace MyProject.EntitiesModel
         [DataType(DataType.Password)]
         [NotMapped]
         public string RePassword { get; set; }
+        
     }
 
     public partial class CompanyInfo
@@ -23,5 +24,6 @@ namespace MyProject.EntitiesModel
         [NotMapped]
         public string RePassWord { get; set; }
     }
+
     
 }

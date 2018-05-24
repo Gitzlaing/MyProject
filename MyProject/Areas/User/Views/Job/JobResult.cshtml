@@ -1,0 +1,37 @@
+﻿@using MyProject.EntitiesModel
+@model List<ApplyJob>
+@{
+    ViewBag.Title = "申请记录";
+    Layout = "~/Areas/User/Views/Edit/Index.cshtml";
+}
+
+<h3>申请记录</h3>
+<br />
+@if (Model != null)
+{
+    foreach (ApplyJob item in Model)
+    {
+        <div class="myJob_ApplyJob">
+            <h4>@item.Jobs.JobName</h4>
+            <h5>@item.CompanyInfo.CompanyName</h5>
+            <h5>申请时间：@item.Date.ToString("yyyy/MM/dd")</h5>
+            <div class="myJobStatus">
+                当前状态:  @switch (item.Status)
+                {
+                    case 0:
+                        <span style="color:forestgreen">等待回复</span>
+                        break;
+                    case 1:
+                        <span style="color:forestgreen">已接受</span>
+                        break;
+                    case 2:
+                        <span style="color:forestgreen">面试中</span>
+                        break;
+                    case 3:
+                        <span style="color:red">被拒绝</span>
+                        break;
+                }
+            </div>
+        </div>
+    }
+}

@@ -65,9 +65,9 @@
             @Html.EditorFor(o => o.ImgUrl, new { htmlAttributes = new { style = "display: none;" } })
             <input type="file" id="uploadCompanyImg" name="img" style="display:none;" />
             <div class="input-group">
-                <input type="text" id="companyImgfileTxtCover" class="form-control" value="" readonly  />
+                <input type="text" id="companyImgfileTxtCover" class="form-control" value="" readonly />
                 <span class="input-group-btn">
-                    <input type="button" class="btn btn-primary" onclick="$('input[id=uploadCompanyImg]').click();" value="选择图片"/>
+                    <input type="button" class="btn btn-primary" onclick="$('input[id=uploadCompanyImg]').click();" value="选择图片" />
                 </span>
             </div>
             <br />
@@ -108,11 +108,11 @@
     </tr>
     <tr>
         <th align="center" valign="top">公司简介：</th>
-        <td colspan="2" valign="top">@Html.EditorFor(o => o.Describe, new { htmlAttributes = new { @class = "form-control" } })</td>
+        <td colspan="2" valign="top">@Html.EditorFor(o => o.Describe, new { htmlAttributes = new { @class = "form-control" } }) </td>
     </tr>
     <tr>
         <td colspan="2" align="center">
-            <input type="submit" name="btnSubmit" value="保存" class="btn btn-primary" style="width:200px;height:45px;" /> <span>@ViewBag.Msg</span>
+            <input type="submit" name="btnSubmit" id="btnSubmit" value="保存" class="btn btn-primary" style="width:200px;height:45px;" /> <span>@ViewBag.Msg</span>
         </td>
         <td align="left"><input type="button" id="btnNext" name="btnNext" value="下一步" class="btn btn-primary" onclick="nextSteps(1, 2);" /></td>
     </tr>
@@ -132,5 +132,7 @@
         if ($('#LicenseUrl').val() != '') {
             $('#companyLicense').attr('src', $('#LicenseUrl').val());
         }
-    };
+
+    };    
+
 </script>

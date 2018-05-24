@@ -1,5 +1,5 @@
 ﻿@model MyProject.EntitiesModel.CompanyInfo
-    @using MyProject.Hubs
+@using MyProject.Hubs
 @{
     ViewBag.Title = "账户状态";
     ViewBag.CompanyName = Model.CompanyName;
@@ -12,22 +12,34 @@
     }
 </style>
 
+<div class="row">
+    <div class="col-md-3">
+        <ul class="list-group">
+            <li class="list-group-item"><a href="/Company/Edit/Index">账号信息设置</a></li>
+            <li class="list-group-item"><a href="/Company/Home/Status">账号审核状态</a></li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <div id="companyStatus">
+            @if (ViewBag.CompanyStatus)
+            {
+                <h3 style="color:forestgreen">已通过验证</h3>
+            }
+            else
+            {
+                <h3 style="color:red">未通过验证</h3>
+            }
+        </div>
 
-<div id="companyStatus">
-    @if (ViewBag.CompanyStatus)
-    {
-        <h3 style="color:forestgreen">已通过验证</h3>
-    }
-    else
-    {
-        <h3 style="color:red">未通过验证</h3>
-    }
+    </div>
 </div>
-<script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
-<script src="~/signalr/hubs"></script>
+
+
+
+@*<script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>*@
 <script type="text/javascript">
     $('#myTabs li').eq(5).addClass('active');
-
     @*function getStatus() {
         var status = true;
         var postdata = { companyId:@Model.CompanyId};

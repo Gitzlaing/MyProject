@@ -8,13 +8,22 @@
     #btnNext {
         display: none;
     }
-    
 </style>
+<div class="row">
+    <div class="col-md-3">
+        <ul class="list-group">
+            <li class="list-group-item"><a href="/Company/Edit/Index">账号信息设置</a></li>
+            <li class="list-group-item"><a href="/Company/Home/Status">账号审核状态</a></li>
+        </ul>
+    </div>
+    <div class="col-md-9">
+        <form action="/Company/Edit/UpdateInfo" method="post" style="width:750px; margin:0 auto;">
+            @Html.Partial("~/Views/Partial/CompanyInfo.cshtml", Model)
+        </form>
+    </div>
+</div>
 
-<form action="/Company/Edit/UpdateInfo" method="post" style="width:750px; margin:0 auto;">
-    @Html.Partial("~/Views/Partial/CompanyInfo.cshtml", Model)
-</form>
 
 <script type="text/javascript">
-    $('#myTabs li').eq(3).addClass('active');
+    $('#myTabs li').eq(5).addClass('active');
 </script>
